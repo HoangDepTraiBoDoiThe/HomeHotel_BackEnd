@@ -15,15 +15,15 @@ import java.time.LocalDate;
 public class BookedRoom {
     @Id
     @GeneratedValue
-    long id;
-    LocalDate bookedDate;
-    LocalDate returnDate;
-    int adultCount;
-    int childrenCount;
-    BigDecimal price;
-    long confirmationCode;
+    private long id;
+    private LocalDate bookedDate;
+    private LocalDate returnDate;
+    private int adultCount;
+    private int childrenCount;
+    private BigDecimal price;
+    private long confirmationCode;
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
-    Room roomId;
+    private Room room;
 }

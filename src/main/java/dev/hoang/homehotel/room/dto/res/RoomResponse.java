@@ -1,6 +1,5 @@
-package dev.hoang.homehotel.room.response;
+package dev.hoang.homehotel.room.dto.res;
 
-import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

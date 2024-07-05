@@ -1,4 +1,4 @@
-package dev.hoang.homehotel.room.response;
+package dev.hoang.homehotel.room.dto.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
