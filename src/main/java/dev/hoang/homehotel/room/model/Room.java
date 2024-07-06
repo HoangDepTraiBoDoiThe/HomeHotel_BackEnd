@@ -1,5 +1,7 @@
 package dev.hoang.homehotel.room.model;
 
+import dev.hoang.homehotel.room.dto.req.RoomRequest;
+import dev.hoang.homehotel.room.dto.res.RoomResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,6 +10,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Blob;
+import java.util.Base64;
 
 @Data
 @Entity
@@ -16,10 +19,19 @@ import java.sql.Blob;
 public class Room {
     @Id
     @GeneratedValue
-    long id;
-    int roomNumber;
-    BigDecimal roomPrice;
-    boolean isBooked;
+    @Setter(AccessLevel.PRIVATE) private long id;
+    private int roomNumber;
+    private BigDecimal roomPrice;
+    private boolean isBooked;
     @Lob
-    Blob roomPic;
+    private Blob roomPic;
+
+    public Room(RoomRequest roomRequest) {
+        this.roomNumber = roomRequest.getRoomNumber();
+        this.roomPrice = roomRequest.getRoomPrice();
+        this.isBooked = false;
+/*
+        this.roomPic = roomRequest.getRoomPic();
+*/
+    }
 }

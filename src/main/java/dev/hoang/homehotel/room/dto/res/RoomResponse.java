@@ -1,8 +1,12 @@
 package dev.hoang.homehotel.room.dto.res;
 
+import dev.hoang.homehotel.room.model.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Base64;
 
 import java.math.BigDecimal;
@@ -17,11 +21,23 @@ public class RoomResponse {
     boolean isBooked;
     String roomPic;
 
-    public RoomResponse(long id, int roomNumber, BigDecimal roomPrice, boolean isBooked, byte[] roomPicByte) {
-        this.id = id;
-        this.roomNumber = roomNumber;
-        this.roomPrice = roomPrice;
-        this.isBooked = isBooked;
-        this.roomPic = roomPicByte != null ? Base64.getEncoder().encodeToString(roomPicByte) : null;
+    public RoomResponse(Room room) {
+        this.id = room.getId();
+        this.roomNumber = room.getRoomNumber();
+        this.roomPrice = room.getRoomPrice();
+        this.isBooked = room.isBooked();
+        this.roomPic = convertBlobToString(room.getRoomPic());
+    }
+
+    String convertBlobToString(Blob roomPic) {
+        if (roomPic == null) {
+            return null;
+        }
+        try {
+            byte[] roomPicBytes = roomPic.getBytes(1, (int) roomPic.length());
+            return Base64.getEncoder().encodeToString(roomPicBytes);
+        } catch (SQLException e) {
+            throw new RuntimeException("Can't convert blob to string: " + e);
+        }
     }
 }
