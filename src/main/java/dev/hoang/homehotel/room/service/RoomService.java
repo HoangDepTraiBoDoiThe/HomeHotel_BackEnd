@@ -4,14 +4,13 @@ import dev.hoang.homehotel.room.dto.req.BookRoomRequest;
 import dev.hoang.homehotel.room.dto.req.RoomRequest;
 import dev.hoang.homehotel.room.dto.res.BookedRoomResponse;
 import dev.hoang.homehotel.room.dto.res.RoomResponse;
+import dev.hoang.homehotel.room.exception.RoomException;
 import dev.hoang.homehotel.room.model.Room;
 import dev.hoang.homehotel.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +21,7 @@ public class RoomService implements IRoomService{
 
     @Override
     public RoomResponse getRoomById(long id) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException("Room not found"));
         return new RoomResponse(room);
     }
     @Override
@@ -38,7 +37,7 @@ public class RoomService implements IRoomService{
 
     @Override
     public RoomResponse updateRoom(long id, RoomRequest roomRequest) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+        Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException("Room not found. Can not update this room"));
         room.setRoomNumber(roomRequest.getRoomNumber());
         room.setRoomPrice(roomRequest.getRoomPrice());
         room.setBooked(roomRequest.isRoomBooked());
