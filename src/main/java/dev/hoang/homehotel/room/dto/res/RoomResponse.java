@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 public class RoomResponse {
     long id;
     int roomNumber;
+    private String roomType;
     BigDecimal roomPrice;
     boolean isBooked;
     String roomPic;
@@ -26,6 +27,7 @@ public class RoomResponse {
         this.roomNumber = room.getRoomNumber();
         this.roomPrice = room.getRoomPrice();
         this.isBooked = room.isBooked();
+        this.roomType = room.getRoomType();
         this.roomPic = convertBlobToString(room.getRoomPic());
     }
 

@@ -14,14 +14,21 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class RoomRequest {
     private int roomNumber;             // Non-null, unique
     private boolean isRoomBooked;        // Non-null, positive
+    private String roomType;
     private BigDecimal roomPrice;        // Non-null, positive
     @Lob
     private MultipartFile roomPic;       // Optional (for uploading a new picture)
+
+    public RoomRequest(BigDecimal roomPrice, MultipartFile roomPic, String roomType, int roomNumber) {
+        this.roomPrice = roomPrice;
+        this.roomPic = roomPic;
+        this.roomType = roomType;
+        this.roomNumber = roomNumber;
+    }
 
     public Blob roomPicToBlob() {
         if (roomPic != null && !roomPic.isEmpty()) {

@@ -22,6 +22,7 @@ public class Room {
     @Setter(AccessLevel.PRIVATE) private long id;
     private int roomNumber;
     private BigDecimal roomPrice;
+    private String roomType;
     private boolean isBooked;
     @Lob
     private Blob roomPic;
@@ -29,9 +30,8 @@ public class Room {
     public Room(RoomRequest roomRequest) {
         this.roomNumber = roomRequest.getRoomNumber();
         this.roomPrice = roomRequest.getRoomPrice();
+        this.roomType = roomRequest.getRoomType();
         this.isBooked = false;
-/*
-        this.roomPic = roomRequest.getRoomPic();
-*/
+        this.roomPic = roomRequest.roomPicToBlob();
     }
 }

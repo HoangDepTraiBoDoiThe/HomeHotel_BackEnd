@@ -7,9 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -33,9 +36,12 @@ public class RoomController {
         return ResponseEntity.ok(roomResponseEntityModel);
     }
 
-    @PostMapping
-    public ResponseEntity<EntityModel<RoomResponse>> createNewRoom(@RequestBody RoomRequest roomRequestBody) {
-        RoomResponse roomResponse = roomService.createRoom(roomRequestBody);
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<EntityModel<RoomResponse>> createNewRoom(
+            @RequestParam BigDecimal roomPrice, @RequestParam MultipartFile roomPic, @RequestParam String roomType, @RequestParam int roomNumber) {
+        RoomRequest roomRequest = new RoomRequest(roomPrice, roomPic, roomType, roomNumber);
+        RoomResponse roomResponse = roomService.createRoom(roomRequest);
         EntityModel<RoomResponse> roomResponseEntityModel = roomModelAssembler.toModel(roomResponse);
         return ResponseEntity.ok(roomResponseEntityModel);
     }
