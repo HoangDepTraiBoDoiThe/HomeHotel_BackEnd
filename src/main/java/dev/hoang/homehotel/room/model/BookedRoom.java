@@ -1,5 +1,6 @@
 package dev.hoang.homehotel.room.model;
 
+import dev.hoang.homehotel.room.dto.req.BookRoomRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +22,20 @@ public class BookedRoom {
     private int adultCount;
     private int childrenCount;
     private BigDecimal price;
+    @GeneratedValue
     private long confirmationCode;
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
+
+
+    public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook) {
+        this.room = roomToBook;
+        this.bookedDate = bookRoomRequest.getBookedDate();
+        this.returnDate = bookRoomRequest.getReturnDate();
+        this.adultCount = bookRoomRequest.getAdultCount();
+        this.childrenCount = bookRoomRequest.getChildrenCount();
+    }
+
 }

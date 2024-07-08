@@ -31,6 +31,10 @@ public class RoomResponse {
         this.roomPic = convertBlobToString(room.getRoomPic());
     }
 
+    public Room toRoom() {
+        Room room = new Room()
+    }
+
     String convertBlobToString(Blob roomPic) {
         if (roomPic == null) {
             return null;

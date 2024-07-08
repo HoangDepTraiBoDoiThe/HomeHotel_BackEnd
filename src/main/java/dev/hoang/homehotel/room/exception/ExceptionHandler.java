@@ -17,7 +17,14 @@ class  ErrorDetail {
 @RestControllerAdvice
 public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(RoomException.class)
-    ResponseEntity<?> handleMovieNotFound(RoomException ex, WebRequest webRequest) {
+    ResponseEntity<?> handleRoomNotFound(RoomException ex, WebRequest webRequest) {
+        String errorMessage= "Resource not found: " + ex.getMessage();
+        ErrorDetail errorDetail = new ErrorDetail(errorMessage, webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(BookedRoomException.class)
+    ResponseEntity<?> handleBookedRoomNotFound(BookedRoomException ex, WebRequest webRequest) {
         String errorMessage= "Resource not found: " + ex.getMessage();
         ErrorDetail errorDetail = new ErrorDetail(errorMessage, webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);

@@ -1,5 +1,6 @@
 package dev.hoang.homehotel.room.dto.res;
 
+import dev.hoang.homehotel.room.model.BookedRoom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,15 @@ public class BookedRoomResponse {
     private long confirmationCode;
     private long roomId; // Assuming we only need the ID for the response
 
+    public BookedRoomResponse(BookedRoom bookedRoom) {
+        this.id = bookedRoom.getId();
+        this.bookedDate = bookedRoom.getBookedDate();
+        this.returnDate = bookedRoom.getReturnDate();
+        this.adultCount = bookedRoom.getAdultCount();
+        this.childrenCount = bookedRoom.getChildrenCount();
+        this.price = bookedRoom.getPrice();
+        this.confirmationCode = bookedRoom.getConfirmationCode();
+        this.roomId = bookedRoom.getRoom().getId();
+    }
 }
 
