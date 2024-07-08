@@ -18,7 +18,7 @@ public class BookedRoomResponse {
     private int adultCount;
     private int childrenCount;
     private BigDecimal price;
-    private long confirmationCode;
+    private String confirmationCode;
     private long roomId; // Assuming we only need the ID for the response
 
     public BookedRoomResponse(BookedRoom bookedRoom) {

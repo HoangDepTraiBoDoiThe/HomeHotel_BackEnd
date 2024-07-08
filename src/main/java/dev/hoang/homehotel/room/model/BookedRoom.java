@@ -22,14 +22,14 @@ public class BookedRoom {
     private int adultCount;
     private int childrenCount;
     private BigDecimal price;
-    private long confirmationCode;
+    private String confirmationCode;
 
     @JoinColumn
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
 
 
-    public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook, long confirmationCode) {
+    public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook, String confirmationCode) {
         this.room = roomToBook;
         this.bookedDate = bookRoomRequest.getBookedDate();
         this.returnDate = bookRoomRequest.getReturnDate();
