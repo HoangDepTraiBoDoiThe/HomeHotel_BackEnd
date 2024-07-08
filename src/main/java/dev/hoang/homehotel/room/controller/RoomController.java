@@ -2,6 +2,7 @@ package dev.hoang.homehotel.room.controller;
 
 import dev.hoang.homehotel.room.dto.req.RoomRequest;
 import dev.hoang.homehotel.room.dto.res.RoomResponse;
+import dev.hoang.homehotel.room.model.Room;
 import dev.hoang.homehotel.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
@@ -23,34 +24,33 @@ public class RoomController {
     private final RoomModelAssembler roomModelAssembler;
 
     @GetMapping
-    public ResponseEntity<CollectionModel<EntityModel<RoomResponse>>> getAllRooms() {
-        List<RoomResponse> roomResponses = roomService.getAllRooms();
-        CollectionModel<EntityModel<RoomResponse>> roomResponseEntityModelCollection = roomModelAssembler.toCollectionModel(roomResponses);
-        roomResponseEntityModelCollection.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getAllRooms()).withSelfRel());
-        return ResponseEntity.ok(roomResponseEntityModelCollection);
+    public ResponseEntity<CollectionModel<EntityModel<Room>>> getAllRooms() {
+        List<Room> rooms = roomService.getAllRooms();
+        CollectionModel<EntityModel<Room>> roomEntityModelCollection = roomModelAssembler.toCollectionModel(rooms);
+        roomEntityModelCollection.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getAllRooms()).withSelfRel());
+        return ResponseEntity.ok(roomEntityModelCollection);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EntityModel<RoomResponse>> getRoomById(@PathVariable long id) {
-        EntityModel<RoomResponse> roomResponseEntityModel = roomModelAssembler.toModel(roomService.getRoomById(id));
-        return ResponseEntity.ok(roomResponseEntityModel);
+    public ResponseEntity<EntityModel<Room>> getRoomById(@PathVariable long id) {
+        EntityModel<Room> roomEntityModel = roomModelAssembler.toModel(roomService.getRoomById(id));
+        return ResponseEntity.ok(roomEntityModel);
     }
 
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<EntityModel<RoomResponse>> createNewRoom(
+    public ResponseEntity<EntityModel<Room>> createNewRoom(
             @RequestParam BigDecimal roomPrice, @RequestParam MultipartFile roomPic, @RequestParam String roomType, @RequestParam int roomNumber) {
         RoomRequest roomRequest = new RoomRequest(roomPrice, roomPic, roomType, roomNumber);
-        RoomResponse roomResponse = roomService.createRoom(roomRequest);
-        EntityModel<RoomResponse> roomResponseEntityModel = roomModelAssembler.toModel(roomResponse);
-        return ResponseEntity.ok(roomResponseEntityModel);
+        Room room = roomService.createRoom(roomRequest);
+        EntityModel<Room> roomEntityModel = roomModelAssembler.toModel(room);
+        return ResponseEntity.ok(roomEntityModel);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EntityModel<RoomResponse>> updateRoom(@PathVariable long id, @RequestBody RoomRequest roomRequestBody) {
-        RoomResponse roomResponse = roomService.updateRoom(id, roomRequestBody);
-        EntityModel<RoomResponse> roomResponseEntityModel = roomModelAssembler.toModel(roomResponse);
-        return ResponseEntity.ok(roomResponseEntityModel);
+    public ResponseEntity<EntityModel<Room>> updateRoom(@PathVariable long id, @RequestBody RoomRequest roomRequestBody) {
+        Room room = roomService.updateRoom(id, roomRequestBody);
+        EntityModel<Room> roomEntityModel = roomModelAssembler.toModel(room);
+        return ResponseEntity.ok(roomEntityModel);
     }
 
     @DeleteMapping("/{id}")

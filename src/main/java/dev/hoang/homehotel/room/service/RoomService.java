@@ -20,54 +20,32 @@ public class RoomService implements IRoomService{
     private final RoomRepository roomRepository;
 
     @Override
-    public RoomResponse getRoomById(long id) {
-        Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException("Room not found"));
-        return new RoomResponse(room);
-    }
-    @Override
-    public List<RoomResponse> getAllRooms() {
-        return roomRepository.findAll().stream().map(RoomResponse::new).collect(Collectors.toList());
+    public Room getRoomById(long id) {
+        return roomRepository.findById(id).orElseThrow(() -> new RoomException("Room not found"));
     }
 
     @Override
-    public RoomResponse createRoom(RoomRequest roomRequest) {
-        Room newRoom = roomRepository.save(new Room(roomRequest));
-        return new RoomResponse(newRoom);
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
     }
 
     @Override
-    public RoomResponse updateRoom(long id, RoomRequest roomRequest) {
+    public Room createRoom(RoomRequest roomRequest) {
+        return roomRepository.save(new Room(roomRequest));
+    }
+
+    @Override
+    public Room updateRoom(long id, RoomRequest roomRequest) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new RoomException("Room not found. Can not update this room"));
         room.setRoomNumber(roomRequest.getRoomNumber());
         room.setRoomPrice(roomRequest.getRoomPrice());
         room.setBooked(roomRequest.isRoomBooked());
         room.setRoomPic(roomRequest.roomPicToBlob());
-        Room updatedRoom = roomRepository.save(room);
-        return new RoomResponse(updatedRoom);
+        return roomRepository.save(room);
     }
-
     @Override
     public void deleteRoom(long id) {
         roomRepository.deleteById(id);
     }
 
-    @Override
-    public BookedRoomResponse bookRoom(long roomId, BookRoomRequest bookRoomRequest) {
-        return null;
-    }
-
-    @Override
-    public List<BookedRoomResponse> getAllBookedRooms() {
-        return null;
-    }
-
-    @Override
-    public BookedRoomResponse getBookedRoomById(long id) {
-        return null;
-    }
-
-    @Override
-    public void deleteBookedRoom(long id) {
-
-    }
 }

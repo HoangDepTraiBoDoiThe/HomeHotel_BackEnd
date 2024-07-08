@@ -34,9 +34,7 @@ public class BookedRoomService implements IBookedRoomService{
 
     @Override
     public BookedRoomResponse createBookedRoom(BookRoomRequest bookRoomRequest) {
-        Room roomToBook = roomService.getRoomById(bookRoomRequest.getRoomId());
-        BookedRoom bookedRoom = new BookedRoom(bookRoomRequest);
-        return new BookedRoomResponse(bookedRoomRepository.save(bookedRoom));
+        return null;
     }
 
     @Override

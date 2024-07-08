@@ -22,7 +22,6 @@ public class BookedRoom {
     private int adultCount;
     private int childrenCount;
     private BigDecimal price;
-    @GeneratedValue
     private long confirmationCode;
 
     @JoinColumn
@@ -30,12 +29,13 @@ public class BookedRoom {
     private Room room;
 
 
-    public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook) {
+    public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook, long confirmationCode) {
         this.room = roomToBook;
         this.bookedDate = bookRoomRequest.getBookedDate();
         this.returnDate = bookRoomRequest.getReturnDate();
         this.adultCount = bookRoomRequest.getAdultCount();
         this.childrenCount = bookRoomRequest.getChildrenCount();
+        this.confirmationCode = confirmationCode;
     }
 
 }
