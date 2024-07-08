@@ -11,9 +11,18 @@ public class RoomModelAssembler implements RepresentationModelAssembler<RoomResp
 
     @Override
     public EntityModel<RoomResponse> toModel(RoomResponse entity) {
-        return EntityModel.of(entity,
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getRoomById(entity.getId())).withSelfRel(),
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getAllRooms()).withRel("getAllRooms")
-        );
+        EntityModel<RoomResponse> entityModel = EntityModel.of(entity,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getRoomById(entity.getId())).withSelfRel().withType("GET"),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).deleteRoom(entity.getId())).withRel("deleteRoom").withType("DELETE"),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RoomController.class).getAllRooms()).withRel("getAllRooms").withType("GET")
+                );
+
+        if (!entity.isBooked()) {
+            entityModel.add(
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BookRoomController.class).bookARoom(null, entity.getId())).withRel("bookRoom").withType("POST")
+            );
+        }
+
+        return entityModel;
     }
 }
