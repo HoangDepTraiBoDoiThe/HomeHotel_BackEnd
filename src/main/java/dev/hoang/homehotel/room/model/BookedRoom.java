@@ -31,7 +31,7 @@ public class BookedRoom {
 
     public BookedRoom(BookRoomRequest bookRoomRequest, Room roomToBook, String confirmationCode) {
         this.room = roomToBook;
-        this.bookedDate = bookRoomRequest.getBookedDate();
+        this.bookedDate = bookRoomRequest.getBookDate();
         this.returnDate = bookRoomRequest.getReturnDate();
         this.adultCount = bookRoomRequest.getAdultCount();
         this.childrenCount = bookRoomRequest.getChildrenCount();
