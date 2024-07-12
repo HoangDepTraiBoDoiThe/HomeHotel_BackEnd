@@ -6,7 +6,8 @@ import dev.hoang.homehotel.room.model.BookedRoom;
 import java.util.List;
 
 public interface IBookedRoomService {
-    BookedRoom getBookedRoomBy(long id);
+    BookedRoom getBookedRoomById(long id);
+    BookedRoom getBookedRoomByConfirmationCode(String code);
     List<BookedRoom> getAllBookedHistoryOfRoomById(long id);
     void deleteBookedRoomById(long id);
     BookedRoom createBookedRoom(BookRoomRequest bookRoomRequest);

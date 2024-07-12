@@ -1,5 +1,7 @@
-package dev.hoang.homehotel.room.controller;
+package dev.hoang.homehotel.room.assembler;
 
+import dev.hoang.homehotel.room.controller.BookRoomController;
+import dev.hoang.homehotel.room.controller.RoomController;
 import dev.hoang.homehotel.room.dto.res.RoomResponse;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

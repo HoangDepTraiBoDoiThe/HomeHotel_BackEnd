@@ -1,8 +1,8 @@
 package dev.hoang.homehotel.room.controller;
 
+import dev.hoang.homehotel.room.assembler.RoomModelAssembler;
 import dev.hoang.homehotel.room.dto.req.RoomRequest;
 import dev.hoang.homehotel.room.dto.res.RoomResponse;
-import dev.hoang.homehotel.room.model.Room;
 import dev.hoang.homehotel.room.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
