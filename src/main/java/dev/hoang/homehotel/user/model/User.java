@@ -20,6 +20,11 @@ public class User {
     private String password;
     private String email;
 
+    public User(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_role", referencedColumnName = "id"))
