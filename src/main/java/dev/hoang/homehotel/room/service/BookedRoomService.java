@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static dev.hoang.homehotel.utils.index.generateNumericCode;
+import static dev.hoang.homehotel.global.utils.index.generateNumericCode;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package dev.hoang.homehotel.utils;
+package dev.hoang.homehotel.global.utils;
 
 import java.util.Random;
 

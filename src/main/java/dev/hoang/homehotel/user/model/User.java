@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 import java.util.Collection;
 import java.util.HashSet;
 
+@Entity
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
     private String userName;
     private String password;
     private String email;
@@ -27,6 +29,6 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_role", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> Roles = new HashSet<>();
 }
