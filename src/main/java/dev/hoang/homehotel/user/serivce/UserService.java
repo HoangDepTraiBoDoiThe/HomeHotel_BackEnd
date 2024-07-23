@@ -6,16 +6,19 @@ import dev.hoang.homehotel.user.exception.UserException;
 import dev.hoang.homehotel.user.model.User;
 import dev.hoang.homehotel.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.text.Format;
 import java.util.Collection;
 import java.util.List;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> GetAllUsers() {
         List<User> users = userRepository.findAll();

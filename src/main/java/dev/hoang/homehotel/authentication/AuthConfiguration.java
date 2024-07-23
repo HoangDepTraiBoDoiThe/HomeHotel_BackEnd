@@ -1,7 +1,9 @@
 package dev.hoang.homehotel.authentication;
 
 import dev.hoang.homehotel.authentication.userDeitail.AuthJwtTokenFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,16 +16,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
+@Configuration
 public class AuthConfiguration{
+    private final AuthJwtTokenFilter authJwtTokenFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthJwtTokenFilter authJwtTokenFilter() {
-        return new AuthJwtTokenFilter();
     }
 
     @Bean
@@ -38,7 +38,7 @@ public class AuthConfiguration{
                         requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().permitAll()
                         );
 
-        httpSecurity.addFilterBefore(authJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(authJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

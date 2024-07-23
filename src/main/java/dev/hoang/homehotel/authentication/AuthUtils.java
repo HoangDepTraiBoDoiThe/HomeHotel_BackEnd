@@ -8,17 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 
-@Configuration
-@RequiredArgsConstructor
+@Component
 public class AuthUtils {
-    private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(AuthUtils.class);
 
     @Value("auth.security.token.expirationInMillis")
