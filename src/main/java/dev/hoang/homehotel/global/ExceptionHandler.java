@@ -36,14 +36,14 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UserException.class)
-    ResponseEntity<?> UserNotFound(UserException ex, WebRequest webRequest) {
+    public ResponseEntity<?> UserNotFound(UserException ex, WebRequest webRequest) {
         String errorMessage= notfoundMessage + ex.getMessage();
         ErrorDetail errorDetail = new ErrorDetail(errorMessage, webRequest.getDescription(true));
         return new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
-    ResponseEntity<?> handleAllException(Exception ex, WebRequest webRequest) {
+    public ResponseEntity<?> HandleAllException(Exception ex, WebRequest webRequest) {
         String errorMessage= "Internal Server Error: " + ex.getMessage();
         ErrorDetail errorDetail = new ErrorDetail(errorMessage, webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetail, HttpStatus.INTERNAL_SERVER_ERROR);

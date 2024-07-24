@@ -19,9 +19,9 @@ import java.util.function.Function;
 public class AuthUtils {
     private static final Logger logger = LoggerFactory.getLogger(AuthUtils.class);
 
-    @Value("auth.security.token.expirationInMillis")
-    private long expirationMillis;
-    @Value("auth.security.token.securityKey")
+    @Value("${auth.security.token.expirationInMillis}")
+    private String expirationMillis;
+    @Value("${auth.security.token.securityKey}")
     private String securityKey;
 
     public SecretKey getSecurityKey() {
@@ -30,7 +30,7 @@ public class AuthUtils {
 
     public String generateToken(String userEmail) {
         HashMap<String, Object> claims = new HashMap<>();
-        return Jwts.builder().setClaims(claims).setSubject(userEmail).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() * expirationMillis * 1000)).signWith(getSecurityKey(), SignatureAlgorithm.HS256).compact();
+        return Jwts.builder().setClaims(claims).setSubject(userEmail).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() * Long.parseLong(expirationMillis) * 1000)).signWith(getSecurityKey(), SignatureAlgorithm.HS256).compact();
     }
 
     public boolean isTokenExpired(String token) {

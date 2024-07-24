@@ -31,9 +31,8 @@ public class UserService {
     }
 
     public User createNewUser(UserRequest userRequest) {
-        User newUser = userRequest.toUser();
-        if (newUser == null) throw new RuntimeException("Can not create new user.");
-        return newUser;
+        if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) throw new RuntimeException("Exiting User with this email");
+        return userRepository.save(userRequest.toUser(passwordEncoder));
     }
 
     public Collection<Role> getUserRoles(String id) {

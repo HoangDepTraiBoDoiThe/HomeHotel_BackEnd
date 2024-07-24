@@ -29,10 +29,4 @@ public class UserController {
        UserResponse userResponse = new UserResponse(user);
        return ResponseEntity.ok(userResponse);
     }
-
-    @PostMapping
-    public ResponseEntity<UserResponse> createNewUser(@RequestBody UserRequest userRequest) {
-        User newUser = userService.createNewUser(userRequest);
-        return ResponseEntity.ok(new UserResponse(newUser));
-    }
 }

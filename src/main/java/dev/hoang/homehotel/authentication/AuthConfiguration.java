@@ -31,11 +31,13 @@ public class AuthConfiguration{
         return authConfig.getAuthenticationManager();
     }
 
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/auth/**", "/rooms/**", "/bookins/**").permitAll().
-                        requestMatchers("/roles/**").hasRole("ADMIN").anyRequest().permitAll()
+                .authorizeHttpRequests(auth -> auth.
+                        requestMatchers("/api/auth/**", "/bookins/**").permitAll().
+                        requestMatchers("/roles/**").hasRole("ADMIN").
+                        anyRequest().authenticated()
                         );
 
         httpSecurity.addFilterBefore(authJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

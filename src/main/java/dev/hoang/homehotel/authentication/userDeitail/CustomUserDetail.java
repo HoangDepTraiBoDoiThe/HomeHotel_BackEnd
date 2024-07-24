@@ -16,14 +16,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Setter
 public class CustomUserDetail implements UserDetails {
-    private final UserService userService;
     private Long id;
     private  String email;
     private String password;
-
+    private Collection<GrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userService.getUserByEmail(email).getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
+        return authorities;
     }
 
     @Override
